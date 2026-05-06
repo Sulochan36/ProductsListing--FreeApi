@@ -1,6 +1,6 @@
 import type { ProductResponse } from "../types/product";
 
-const BASE_URL = "/api/api/v1/public/randomproducts";
+const BASE_URL = "https://api.freeapi.app/api/v1/public/randomproducts";
 
 export const fetchProducts = async (
     page: number,
