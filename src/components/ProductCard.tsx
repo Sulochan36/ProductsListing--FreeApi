@@ -1,31 +1,50 @@
 import type { Product } from "../types/product";
 
 const ProductCard = ({ product }: { product: Product }) => {
-    const discountedPrice = (
-        product.price *
-        (1 - product.discountPercentage / 100)
-    ).toFixed(2);
-
     return (
-        <div className="card">
-            <img src={product.thumbnail} alt={product.title} />
+        <div className="bg-white rounded-2xl border hover:shadow-lg transition overflow-hidden group">
 
-            <h2>{product.title}</h2>
-            <p className="brand">{product.brand}</p>
-
-            <p className="desc">{product.description}</p>
-
-            <div className="price">
-                <span className="final">₹{discountedPrice}</span>
-                <span className="original">₹{product.price}</span>
+            {/* IMAGE */}
+            <div className="overflow-hidden bg-gray-50">
+                <img
+                    src={product.images?.[0]}
+                    alt={product.title}
+                    className="h-52 w-full object-contain group-hover:scale-105 transition duration-300"
+                />
             </div>
 
-            <div className="meta">
-                <span>⭐ {product.rating}</span>
-                <span>📦 {product.stock} left</span>
-            </div>
+            {/* CONTENT */}
+            <div className="p-4 space-y-2">
 
-            <button>Add to Cart</button>
+                {/* TITLE */}
+                <h3 className="font-medium text-gray-800 line-clamp-1">
+                    {product.title}
+                </h3>
+
+                {/* DESCRIPTION */}
+                <p className="text-sm text-gray-500 line-clamp-2">
+                    {product.description}
+                </p>
+
+                {/* META */}
+                <div className="flex items-center justify-between pt-2">
+
+                    <span className="text-lg font-semibold text-gray-900">
+                        ₹{product.price}
+                    </span>
+
+                    <span className="text-sm text-yellow-600">
+                        ⭐ {product.rating}
+                    </span>
+
+                </div>
+
+                {/* BRAND */}
+                <p className="text-xs text-gray-400">
+                    {product.brand}
+                </p>
+
+            </div>
         </div>
     );
 };

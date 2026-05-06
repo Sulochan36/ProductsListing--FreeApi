@@ -12,9 +12,10 @@ export interface Product {
     images: string[];
 }
 
-export interface ProductApiResponse {
-    statusCode: number;
-    data: Product;
-    message: string;
-    success: boolean;
+export interface ProductResponse {
+    page: number;
+    totalPages: number;
+    nextPage: boolean;
+    previousPage: boolean;
+    data: Product[];
 }

@@ -1,19 +1,25 @@
-import type { ProductApiResponse } from "../types/product";
+import type { ProductResponse } from "../types/product";
 
-const API_URL =
-    "https://api.freeapi.app/api/v1/public/randomproducts/product/random";
+const BASE_URL = "/api/api/v1/public/randomproducts";
 
-export const fetchRandomProduct = async () => {
-    const res = await fetch(API_URL);
+export const fetchProducts = async (
+    page: number,
+    query: string
+): Promise<ProductResponse> => {
+    const url = `${BASE_URL}?page=${page}&limit=10&query=${query}`;
+
+    const res = await fetch(url);
+    const json = await res.json();
 
     if (!res.ok) {
-        throw new Error("Failed to fetch product");
+        throw new Error(json.message || "Failed to fetch products");
     }
 
-    const data: ProductApiResponse = await res.json();
-
     return {
-        ...data.data,
-        images: data.data.images ?? [],
+        page: json.data.page,
+        totalPages: json.data.totalPages,
+        nextPage: json.data.nextPage,
+        previousPage: json.data.previousPage,
+        data: json.data.data,
     };
 };
